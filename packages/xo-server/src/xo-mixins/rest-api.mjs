@@ -72,8 +72,11 @@ async function* makeObjectsStream(iterable, makeResult, json) {
 async function sendObjects(iterable, req, res, path = req.path) {
   const { query } = req
 
-  const basePath = join(req.baseUrl, path)
-  const makeUrl = ({ id }) => join(basePath, typeof id === 'number' ? String(id) : id)
+  const { baseUrl } = req
+  const makeUrl = item => {
+    const { id } = item
+    return join(baseUrl, typeof path === 'function' ? path(item) : path, typeof id === 'number' ? String(id) : id)
+  }
 
   let makeResult
   let { fields } = query
@@ -275,6 +278,36 @@ export default class RestApi {
           })
           res.json(Array.from(missingPatches.values()))
         },
+      }
+
+      {
+        async function vdis(req, res) {
+          const { object, query } = req
+
+          const vdiIds = new Set()
+          for (const vbdId of object.$VBDs) {
+            const vbd = app.getObject(vbdId, 'VBD')
+            const vdiId = vbd.VDI
+            if (vdiId !== undefined) {
+              vdiIds.add(vdiId)
+            }
+          }
+
+          await sendObjects(
+            handleArray(
+              Array.from(vdiIds, id => app.getObject(id, ['VDI', 'VDI-snapshot'])),
+              query.filter,
+              ifDef(query.limit, Number)
+            ),
+            req,
+            res,
+            ({ type }) => type.toLowerCase() + 's'
+          )
+        }
+
+        for (const collection of ['vms', 'vm-snapshots', 'vm-templates']) {
+          collections[collection].routes.vdis = vdis
+        }
       }
 
       collections.pools.actions = {
