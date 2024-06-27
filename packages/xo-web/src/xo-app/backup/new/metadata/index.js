@@ -272,7 +272,6 @@ export default decorate([
         state.modeXoMetadata && every(state.settings, ({ retentionXoMetadata }) => retentionXoMetadata === 0),
       missingSchedules: state => isEmpty(state.schedules),
       proxyId: (state, props) => defined(state._proxyId, () => props.job.proxy),
-      reportRecipients: (state, { job }) => defined(state._reportRecipients, () => job.reportRecipients),
     },
   }),
   injectState,
