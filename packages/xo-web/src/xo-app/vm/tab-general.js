@@ -287,9 +287,10 @@ const GeneralTab = decorate([
         <Row className='text-xs-center'>
           <Col>
             <p>
-              {_('secureBootStatus')}
-              {': '}
-              {SECUREBOOT_STATUS_MESSAGES[vmSecurebootReadiness]}
+              {_('keyValue', {
+                key: _('secureBootStatus'),
+                value: SECUREBOOT_STATUS_MESSAGES[vmSecurebootReadiness],
+              })}
             </p>
           </Col>
         </Row>
