@@ -12,7 +12,7 @@ import HomeTags from 'home-tags'
 import renderXoItem, { VmTemplate } from 'render-xo-item'
 import sanitizeHtml from 'sanitize-html'
 import Tooltip from 'tooltip'
-import { addTag, editVm, editVmNotes, removeTag, subscribeUsers } from 'xo'
+import { addTag, editVm, editVmNotes, removeTag, subscribeSecurebootReadiness, subscribeUsers } from 'xo'
 import { BlockLink } from 'link'
 import { FormattedRelative } from 'react-intl'
 import { Container, Row, Col } from 'grid'
@@ -36,7 +36,6 @@ import {
 import { CpuSparkLines, MemorySparkLines, NetworkSparkLines, XvdSparkLines } from 'xo-sparklines'
 import { injectState, provideState } from 'reaclette'
 import { find } from 'lodash'
-import { subscribeSecurebootReadiness } from '../../common/xo'
 
 const CREATED_VM_STYLES = {
   whiteSpace: 'pre-line',

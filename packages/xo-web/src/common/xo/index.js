@@ -733,11 +733,11 @@ subscribeXostorInterfaces.forceRefresh = sr => {
 }
 
 const subscribeVmSecurebootReadiness = {}
-export const subscribeSecurebootReadiness = vm => {
+export const subscribeSecurebootReadiness = id => {
   const vmId = resolveId(vm)
 
   if (subscribeVmSecurebootReadiness[vmId] === undefined) {
-    subscribeVmSecurebootReadiness[vmId] = createSubscription(() => _call('vm.getSecurebootReadiness', { vm: vmId }), {
+    subscribeVmSecurebootReadiness[vmId] = createSubscription(() => _call('vm.getSecurebootReadiness', { id: vmId }), {
       polling: 3e4,
     })
   }

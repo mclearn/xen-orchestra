@@ -340,7 +340,7 @@ export async function getGuestSecureBootReadiness({ pool }) {
 }
 
 getGuestSecureBootReadiness.params = {
-  pool: {
+  id: {
     type: 'string',
   },
 }
