@@ -760,7 +760,7 @@ export const subscribeGetGuestSecurebootReadiness = pool => {
 
   if (subscribePoolGuestSecurebootReadiness[poolId] === undefined) {
     subscribePoolGuestSecurebootReadiness[poolId] = createSubscription(() =>
-      _call('pool.getGuestSecureBootReadiness', { pool: poolId })
+      _call('pool.getGuestSecureBootReadiness', { id: poolId })
     )
   }
 
