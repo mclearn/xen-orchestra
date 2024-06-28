@@ -750,7 +750,9 @@ const TRANSFORMS = {
     if (obj.other_config.applies_to) {
       const object = obj.$xapi.getObject(obj.other_config.applies_to, undefined)
       if (object === undefined) {
-        debug(`Unknown other_config.applies_to reference ${obj.other_config.applies_to} in task ${obj.$id}`)
+        debug(
+          `Unknown other_config.applies_to reference ${obj.other_config.applies_to} in task ${obj.$id}`
+        )
       } else {
         applies_to = object.uuid
       }
